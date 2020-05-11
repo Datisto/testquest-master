@@ -1,26 +1,37 @@
 import * as React from "react";
 import {ApolloError, gql} from "apollo-boost";
 import {Query} from "@apollo/react-components";
-import {Button} from "antd";
+import {Button, Pagination} from "antd";
 
 const  GET_COURSEPAGE = gql`
     query {
-        pageByCourseIdAndPageNumber(courseId: "1", pageNumber: 1 ) { 
-              courseId
-              pageNumber
-              pageText
-              pageImg
-        }
+  allCourses {
+    nodes {
+      id
+      courseName
+      courseNumber
+      courseAnnotation
     }
-
+  }
+}
 `;
 
 export default class CoursePage extends React.Component<{}, {
-
+    current: any
 }>{
     public constructor (props: any) {
         super (props);
+        this.state = {
+            current: 1
+        }
     }
+
+    onChange = (page: any) => {
+        console.log(page);
+        this.setState({
+            current: page,
+        });
+    };
 
     public render() {
         return (
@@ -32,13 +43,13 @@ export default class CoursePage extends React.Component<{}, {
 
                     return (
                         <div>
-                            <p>{data.pageByCourseIdAndPageNumber.pageImg}</p>
-                            <p>{data.pageByCourseIdAndPageNumber.pageText}</p>
-                            <Button>{data.pageByCourseIdAndPageNumber.pageNumber - 1}</Button>
-                            <p>{data.pageByCourseIdAndPageNumber.pageNumber}</p>
-                            <Button>{data.pageByCourseIdAndPageNumber.pageNumber + 1}</Button>
+                            <p>{data.allCourses.nodes[this.state.current -1].courseNumber}</p>
+                            <p>{data.allCourses.nodes[this.state.current -1].courseName}</p>
+                            <p>{data.allCourses.nodes[this.state.current -1].courseAnnotation}</p>
+                            <Pagination current={this.state.current} onChange={this.onChange}  total={100} />
+                            {this.state.current === 10 && (<Button>Тест</Button>)}
                         </div>
-                    )
+                    );
 
                 }}
             </Query>
