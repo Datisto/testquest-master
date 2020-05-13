@@ -2,8 +2,10 @@ import * as React from "react";
 import {ApolloError, gql} from "apollo-boost";
 import {Query} from "@apollo/react-components";
 import {Button, Pagination} from "antd";
+import {inspect} from "util";
+import styles from "./CoursePage.module.scss";
 
-const  GET_COURSEPAGE = gql`
+const  GET_COURSE_PAGE = gql`
     query {
   allPages{
     nodes {
@@ -36,7 +38,7 @@ export default class CoursePage extends React.Component<{}, {
 
     public render() {
         return (
-            <Query query={GET_COURSEPAGE}>
+            <Query query={GET_COURSE_PAGE}>
                 {({loading, error, data}: {loading: boolean, error?: ApolloError, data: any}) => {
                     if (loading) return <span>"загрузка"</span>;
                     if (error) return <span>'Ошибочка ${error.message}'</span>;

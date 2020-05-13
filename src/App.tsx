@@ -10,16 +10,15 @@ import Test from "./components/test/Test";
 import Course from "./components/course/Course";
 import CoursePage from "./components/course_page/CoursePage";
 import Profile from "./components/profile/Profile";
-import Home from './Home';
 
 import {createBrowserHistory} from 'history';
 import InputQuestion from "./components/inputquestion/InputQuestion";
+import CourseList from './components/course_list/CourseList';
 
-class AppHeaderInner extends React.Component<{location: any}, {
+class AppHeaderInner extends React.Component<{}, {
   mode?: string
 }> {
-  public constructor(props: {}) {
-    // @ts-ignore
+  public constructor(props: any) {
     super(props);
     this.state = {
       mode: 'all'
@@ -27,19 +26,17 @@ class AppHeaderInner extends React.Component<{location: any}, {
   }
 
   public render(): React.ReactNode {
-    const {location} = this.props;
-
     return (
-        <div>
-          <div><Link to="/">main</Link></div>
-          <div><Link to="/authorization">authorization</Link></div>
-          <div><Link to="/registration">registration</Link></div>
-            <div><Link to="/input">test_input</Link></div>
-            <div><Link to="/course">course</Link></div>
-            <div><Link to="/coursePage">course_page</Link></div>
-            <div><Link to="/test">test</Link></div>
-            <div><Link to="/profile">profile</Link></div>
-        </div>
+        <>
+          {/*<div><Link to="/">main</Link></div>*/}
+          {/*<div><Link to="/authorization">authorization</Link></div>*/}
+          {/*<div><Link to="/registration">registration</Link></div>*/}
+          {/*<div><Link to="/input">test_input</Link></div>*/}
+          {/*<div><Link to="/course">course</Link></div>*/}
+          {/*<div><Link to="/coursePage">course_page</Link></div>*/}
+          {/*<div><Link to="/test">test</Link></div>*/}
+          {/*<div><Link to="/profile">profile</Link></div>*/}
+        </>
     );
   };
 }
@@ -59,26 +56,26 @@ const App: React.FC = () => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-                <Route path="/Course">
+              <Route path="/course">
                 <Course/>
               </Route>
-                <Route path="/CoursePage">
-                <CoursePage/>
-              </Route>
-                <Route path="/Profile">
+              <Route path="/profile">
                 <Profile/>
               </Route>
-              <Route path="/Test">
+              <Route path="/test">
                 <Test/>
               </Route>
               <Route path="/authorization">
                 <Authorization/>
               </Route>
-                <Route path="/input">
-                    <InputQuestion/>
-                </Route>
+              <Route path="/input">
+                <InputQuestion/>
+              </Route>
+              <Route path="/course-page">
+                <CoursePage/>
+              </Route>
               <Route path="/">
-                <Home/>
+                <CourseList/>
               </Route>
             </Switch>
           </div>

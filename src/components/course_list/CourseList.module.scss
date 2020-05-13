@@ -1,0 +1,89 @@
+@import "../../cofig";
+
+.courseListPage {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 1fr;
+  grid-template-rows: 71px 1fr;
+}
+
+.courseListHeader {
+  display: grid;
+  height: 71px;
+  width: 100vw;
+  grid-template-columns: 1fr 290px;
+  grid-template-rows: 1fr;
+  padding-right: 5px;
+}
+
+.courseListHeaderBlock {
+  display: grid;
+  height: 71px;
+  width: 290px;
+  grid-auto-columns: 1fr;
+  grid-template-rows: 35px 1px 35px;
+}
+
+.courseListHeaderSeparator {
+  @include flexRowRelative;
+  height: 1px;
+  width: 290px;
+  background: #808080;
+}
+
+.courseListHeaderUserInfo {
+  @include flexRowRelative;
+  justify-content: flex-end;
+  align-items: center;
+  height: 35px;
+  width: 290px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #393939;
+  line-height: 1;
+}
+
+.courseListHeaderVerticalSeparator {
+  @include flexRowRelative;
+  height: 25px;
+  width: 1px;
+  background: #e3e2e2;
+  margin: 5px 15px;
+}
+
+.courseListHeaderImg {
+  @include flexRowRelative;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 25px;
+
+  img {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+.courseListMenu {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: calc(100vh - 71px);
+  width: 100vw;
+  grid-auto-columns: 1fr;
+  grid-template-rows: 125px 25px 125px 25px 125px 25px 125px 25px 125px;
+}
+
+.courseListMenuCourse {
+  display: grid;
+  height: 125px;
+  width: 800px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 35px 85px;
+  margin: 0 calc((100vw - 800px)/2);
+  background-image: url("/static/img/111.png");
+  border: 1.25px solid #063561;
+}
