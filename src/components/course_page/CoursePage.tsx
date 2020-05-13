@@ -5,12 +5,13 @@ import {Button, Pagination} from "antd";
 
 const  GET_COURSEPAGE = gql`
     query {
-  allCourses {
+  allPages{
     nodes {
       id
-      courseName
-      courseNumber
-      courseAnnotation
+      courseId
+      pageNumber
+      pageText
+      pageImg
     }
   }
 }
@@ -43,11 +44,10 @@ export default class CoursePage extends React.Component<{}, {
 
                     return (
                         <div>
-                            <p>{data.allCourses.nodes[this.state.current -1].courseNumber}</p>
-                            <p>{data.allCourses.nodes[this.state.current -1].courseName}</p>
-                            <p>{data.allCourses.nodes[this.state.current -1].courseAnnotation}</p>
-                            <Pagination current={this.state.current} onChange={this.onChange}  total={100} />
+                            <p>{data.allPages.nodes[this.state.current -1].pageImg}</p>
+                            <p>{data.allPages.nodes[this.state.current -1].pageText}</p>
                             {this.state.current === 10 && (<Button>Тест</Button>)}
+                            <Pagination current={this.state.current} onChange={this.onChange}  total={100} />
                         </div>
                     );
 

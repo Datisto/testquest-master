@@ -31,9 +31,9 @@ export default class Course extends React.Component<{}, {
 
                     return (
                         <div>
-                            <p>{data.courseName}</p>
-                            <p>{data.courseNumber}</p>
-                            <p>{data.courseAnnotation}</p>
+                            <p>{data.courseById.courseName}</p>
+                            <p>{data.courseById.courseNumber}</p>
+                            <p>{data.courseById.courseAnnotation}</p>
                             <Button href={data.courseById}>Начать</Button>
                         </div>
                     )

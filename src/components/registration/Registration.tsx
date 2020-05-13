@@ -67,7 +67,7 @@ export default class Registration extends React.Component<{}, {
                     ))}
                     </Select>
                 </div>
-                        <Button type="primary">Вход</Button>
+                        <Button type="primary">Зарегистрировать</Button>
                     </div>
                         );
                 }}

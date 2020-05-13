@@ -6,6 +6,7 @@ import { client } from "./index";
 import Registration from "./components/registration/Registration";
 import Authorization from "./components/athorization/Authorization";
 import TestPage from "./components/test_page/TestPage";
+import Test from "./components/test/Test";
 import Course from "./components/course/Course";
 import CoursePage from "./components/course_page/CoursePage";
 import Profile from "./components/profile/Profile";
@@ -36,6 +37,7 @@ class AppHeaderInner extends React.Component<{location: any}, {
             <div><Link to="/input">test_input</Link></div>
             <div><Link to="/course">course</Link></div>
             <div><Link to="/coursePage">course_page</Link></div>
+            <div><Link to="/test">test</Link></div>
             <div><Link to="/profile">profile</Link></div>
         </div>
     );
@@ -65,6 +67,9 @@ const App: React.FC = () => {
               </Route>
                 <Route path="/Profile">
                 <Profile/>
+              </Route>
+              <Route path="/Test">
+                <Test/>
               </Route>
               <Route path="/authorization">
                 <Authorization/>
