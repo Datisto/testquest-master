@@ -3,7 +3,7 @@ import {ApolloError, gql} from "apollo-boost";
 import {Query} from "@apollo/react-components";
 import {Button, Pagination} from "antd";
 import {inspect} from "util";
-import styles from "./CoursePage.module.scss";
+import styles from "./Courses.module.scss";
 
 const  GET_COURSE_PAGE = gql`
     query {
@@ -19,7 +19,7 @@ const  GET_COURSE_PAGE = gql`
 }
 `;
 
-export default class CoursePage extends React.Component<{}, {
+export default class IntegratedSecurityBasics extends React.Component<{}, {
     current: any
 }>{
     public constructor (props: any) {

@@ -14,7 +14,7 @@ const GET_COURSE = gql`
     }
 `;
 
-export default class Course extends React.Component<{}, {
+export default class Course_example extends React.Component<{}, {
 
 }>{
     public constructor (props: any) {

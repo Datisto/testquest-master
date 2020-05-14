@@ -7,8 +7,8 @@ import Registration from "./components/registration/Registration";
 import Authorization from "./components/athorization/Authorization";
 import TestPage from "./components/test_page/TestPage";
 import Test from "./components/test/Test";
-import Course from "./components/course/Course";
-import CoursePage from "./components/course_page/CoursePage";
+import Course_example from "./components/course_example/Course_example";
+import IntegratedSecurityBasics from "./components/courses/IntegratedSecurityBasics";
 import Profile from "./components/profile/Profile";
 
 import {createBrowserHistory} from 'history';
@@ -56,8 +56,11 @@ const App: React.FC = () => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-              <Route path="/course">
-                <Course/>
+              <Route path="/Test_page">
+                <TestPage/>
+              </Route>
+              <Route path="/course_example">
+                <Course_example/>
               </Route>
               <Route path="/profile">
                 <Profile/>
@@ -71,8 +74,8 @@ const App: React.FC = () => {
               <Route path="/input">
                 <InputQuestion/>
               </Route>
-              <Route path="/course-page">
-                <CoursePage/>
+              <Route path="/security-basics">
+                <IntegratedSecurityBasics/>
               </Route>
               <Route path="/">
                 <CourseList/>
