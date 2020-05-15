@@ -1,48 +1,25 @@
 import * as React from "react";
-import {ApolloError, gql} from "apollo-boost";
-import {Query} from "@apollo/react-components";
+import "./Profile.scss";
+import styles from "./Profile.module.scss";
+import Modal from "antd/lib/modal";
+import Button from "antd/lib/button";
 
-const GET_USR = gql`
-    query {
-        usrById(id: "2") { 
-              id
-              email
-              fullName
-              groupId
-              gender
-              groupByGroupId {
-                groupName
-              }
-        }
-    }
-`;
-
-export default class Profile extends React.Component<{}, {
-
-}>{
-    public constructor (props: any) {
-        super (props);
-    }
-
+export default class Profile extends React.Component<any, any> {
     public render() {
+        const { isVisible, onClose } = this.props;
+
         return (
-            <Query query={GET_USR}>
-                {({loading, error, data}: {loading: boolean, error?: ApolloError, data: any}) => {
-                    if (loading) return <span>"загрузка"</span>;
-                    if (error) return <span>'Ошибочка ${error.message}'</span>;
-                    console.log(data);
-
-                    return (
-                        <div>
-                                    <p>{data.usrById.email}</p>
-                                    <p>{data.usrById.fullName}</p>
-                                    <p>{data.usrById.gender? "Мужской" : "Женский"}</p>
-                                    <p>{data.usrById.groupByGroupId.groupName}</p>
-                        </div>
-                    )
-
-                }}
-            </Query>
+            <Modal
+                title={localStorage.getItem('fullName')}
+                visible={ isVisible }
+                onCancel={ onClose }
+                footer={[<Button className={"newsButtonInModal"} key="submit" type="primary" onClick={onClose}>Закрыть</Button>]}
+                className={"profileTitle"}
+            >
+                <div className={styles.profilePage}><span style={{fontWeight: "bolder"}}>Пол:&nbsp;</span>{localStorage.getItem('gender')}</div>
+                <div className={styles.profilePage}><span style={{fontWeight: "bolder"}}>Группа:&nbsp;</span>{localStorage.getItem('groupName')}</div>
+                <div className={styles.profilePage}><span style={{fontWeight: "bolder"}}>E-mail:&nbsp;</span>{localStorage.getItem('email')}</div>
+            </Modal>
         );
     }
 }

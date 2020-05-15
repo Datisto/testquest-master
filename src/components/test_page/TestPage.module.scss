@@ -1,0 +1,64 @@
+@import "../../cofig";
+
+.testPage {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.testForm {
+  @include flexColumnRelative;
+  width: 500px;
+}
+
+.testRadio {
+  @include flexColumnRelative;
+}
+
+.testPageNumber {
+  @include flexRowRelative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #c0c0c0;
+  line-height: 1;
+}
+
+.testHeader {
+  @include flexRowRelative;
+  width: 500px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+
+  line-height: 1;
+
+  margin-bottom: 15px;
+}
+
+.testRadioAnswer {
+  @include flexRowRelative;
+  align-items: center;
+  width: 500px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+
+  white-space: normal;
+
+  line-height: 1.15;
+  margin-bottom: 15px;
+  margin-right: 0 !important;
+}
+
+.testPageSeparator {
+  @include flexRowRelative;
+  width: 500px;
+  height: 1px;
+
+  background: #c0c0c0;
+}

@@ -3,9 +3,7 @@ import styles from "./App.module.scss";
 import {BrowserRouter as Router, Switch, Route, Link, withRouter} from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import { client } from "./index";
-import Registration from "./components/registration/Registration";
-import Authorization from "./components/athorization/Authorization";
-import TestPage from "./components/test_page/TestPage";
+import Registration from "./components/user/Registration";
 import Test from "./components/test/Test";
 import Course_example from "./components/course_example/Course_example";
 import IntegratedSecurityBasics from "./components/courses/IntegratedSecurityBasics";
@@ -14,6 +12,8 @@ import Profile from "./components/profile/Profile";
 import {createBrowserHistory} from 'history';
 import InputQuestion from "./components/inputquestion/InputQuestion";
 import CourseList from './components/course_list/CourseList';
+import WrappedAuthorization from "./components/user/Authorization";
+import WrappedTestPage from "./components/test_page/TestPage";
 
 class AppHeaderInner extends React.Component<{}, {
   mode?: string
@@ -56,8 +56,8 @@ const App: React.FC = () => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-              <Route path="/Test_page">
-                <TestPage/>
+              <Route path="/test_page">
+                <WrappedTestPage/>
               </Route>
               <Route path="/course_example">
                 <Course_example/>
@@ -69,7 +69,7 @@ const App: React.FC = () => {
                 <Test/>
               </Route>
               <Route path="/authorization">
-                <Authorization/>
+                <WrappedAuthorization/>
               </Route>
               <Route path="/input">
                 <InputQuestion/>
@@ -78,7 +78,7 @@ const App: React.FC = () => {
                 <IntegratedSecurityBasics/>
               </Route>
               <Route path="/">
-                <CourseList/>
+                <WrappedTestPage/>
               </Route>
             </Switch>
           </div>
