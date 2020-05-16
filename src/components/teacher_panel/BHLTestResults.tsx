@@ -5,14 +5,14 @@ import {Button, Pagination} from "antd";
 
 const GET_USER_ANSWER = gql`
 query {
-    allUserAnswers(condition: {courseId: "2"}, orderBy: GROUP_NAME_ASC) {
+    allUserAnswers(condition: {courseId: "3"}, orderBy: GROUP_NAME_ASC) {
         nodes {
             courseId
             groupName
             usrByUserId {
                 id
                 fullName
-                userAnswersByUserId(condition: {courseId: "2"}, orderBy: TASK_NUMBER_ASC) {
+                userAnswersByUserId(condition: {courseId: "3"}, orderBy: TASK_NUMBER_ASC) {
                     nodes{
                         taskNumber
                         answerOptionByAnswerId {
@@ -28,18 +28,18 @@ query {
 `;
 
 
-export default class ATTestResults extends React.Component<{}, {
-    pcak: any
+export default class BHLTestResults extends React.Component<{}, {
+    warn: any
 }>{
     public constructor (props: any) {
         super (props);
         this.state = {
-            pcak: localStorage.getItem('chcd')
+            warn: localStorage.getItem('chcd')
         }
     }
 
     public render() {
-        if (this.state.pcak != null) {
+        if (this.state.warn != null) {
             return (
                 <Query query={GET_USER_ANSWER}>
                     {({loading, error, data}: { loading: boolean, error?: ApolloError, data: any }) => {

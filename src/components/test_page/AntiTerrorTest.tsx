@@ -34,7 +34,7 @@ query {
 `;
 
 const ADD_RESULT = gql`
-    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!) {
+    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!, $taskId: BigInt!) {
         createUserAnswer (
             input: {
                 userAnswer: {
@@ -42,6 +42,8 @@ const ADD_RESULT = gql`
                     answerId: $answerId
                     courseId: $courseId
                     groupName: $groupName
+                    taskNumber: $taskNumber
+                    taskId: $taskId
                 }
             }
         ) {
@@ -49,6 +51,23 @@ const ADD_RESULT = gql`
                 id
             }
         }
+    }
+`;
+
+const ADD_FINISH = gql`
+    mutation ($courseId: BigInt!, $userId: BigInt! ) {
+      createUserCourseResult (
+        input: {
+          userCourseResult: {
+            courseId: $courseId
+            userId: $userId
+          }
+        }
+      ) {
+        userCourseResult {
+          id
+        }
+      }
     }
 `;
 
@@ -95,14 +114,20 @@ class AntiTerrorTest extends React.Component<ITestPageProps, {
     private postResult(createResult: any) {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
-                if ((this.state.i >= 0) && (this.state.i < (this.state.arrLength - 1))) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName') } });
+                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
                     this.setState({i: this.state.i + 1});
-                }
-                else if (this.state.i === (this.state.arrLength - 1)) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName')  } });
-                    appHistory.push('/');
-                }
+            }
+        });
+    }
+
+    @autobind
+    private postFinish(createFinish: any, createResult: any) {
+        this.props.form.validateFields((err: any, values: any) => {
+            if (!err) {
+                createFinish({ variables: { userId: localStorage.getItem('usr_id'), courseId: this.state.arrAnswer[this.state.i].courseId} });
+                createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId  } });
+                appHistory.push('/');
+                window.location.reload();
             }
         });
     }
@@ -142,7 +167,16 @@ class AntiTerrorTest extends React.Component<ITestPageProps, {
                                             )}
                                         </Form.Item>
                                         <span style={{margin: "5px 0 22px 0"}} className={styles.testPageSeparator}/>
-                                        <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>{(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? ("Закончить текст") : ("Отправить ответ")}</Button>
+                                        {(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? (
+                                            <Mutation mutation={ADD_FINISH}>
+                                                {(createFinish: any) => (
+                                                    <Button className={"testPageButton"} type="primary" onClick={() => this.postFinish(createResult, createFinish)}>Закончить текст</Button>
+                                                )}
+                                            </Mutation>
+                                        ) : (
+                                            <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>Отправить ответ</Button>
+                                        )}
+
                                         {/*<Button onClick={this.showModal}>Профиль</Button>*/}
                                         {/*<Profile isVisible={this.state.visible} onClose={this.handleCancel}/>*/}
                                     </Form>

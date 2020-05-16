@@ -13,7 +13,7 @@ import {appHistory} from "../../App";
 
 const GET_TASK = gql`
 query {
-  courseById (id: "1") {
+  courseById (id: "4") {
     tasksByCourseId(orderBy: TASK_NUMBER_ASC) {
       nodes {
         courseId
@@ -34,7 +34,7 @@ query {
 `;
 
 const ADD_RESULT = gql`
-    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!) {
+    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!, $taskId: BigInt!) {
         createUserAnswer (
             input: {
                 userAnswer: {
@@ -42,6 +42,8 @@ const ADD_RESULT = gql`
                     answerId: $answerId
                     courseId: $courseId
                     groupName: $groupName
+                    taskNumber: $taskNumber
+                    taskId: $taskId
                 }
             }
         ) {
@@ -96,11 +98,11 @@ class BasicFirstAidTest extends React.Component<ITestPageProps, {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
                 if ((this.state.i >= 0) && (this.state.i < (this.state.arrLength - 1))) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName') } });
+                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
                     this.setState({i: this.state.i + 1});
                 }
                 else if (this.state.i === (this.state.arrLength - 1)) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName') } });
+                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
                     appHistory.push('/');
                 }
             }

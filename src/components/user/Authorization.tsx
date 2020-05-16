@@ -19,6 +19,7 @@ const GET_USER = gql`
                 password
                 gender
                 groupId
+                role
                 groupByGroupId {
                     groupName
                 }
@@ -67,6 +68,12 @@ class Authorization extends React.Component<IRegistrationProps, {
             if (userDate) {
                 localStorage.setItem('email', values.email);
                 localStorage.setItem('usr_id', userDate.id);
+                if (userDate.role) {
+                    localStorage.setItem('chcd', '1');
+                } else {
+                    localStorage.setItem('chcd', '');
+                }
+
                 localStorage.setItem('password', values.password);
                 localStorage.setItem('fullName', userDate.fullName);
                 localStorage.setItem('groupName', userDate.groupByGroupId.groupName);
@@ -87,6 +94,7 @@ class Authorization extends React.Component<IRegistrationProps, {
                 localStorage.setItem('email', "");
                 localStorage.setItem('gender', "");
                 localStorage.setItem('usr_id', "");
+                localStorage.setItem('usr_role', "");
                 localStorage.setItem('password', "");
                 localStorage.setItem('fullName', "");
                 localStorage.setItem('groupName', "");
@@ -104,53 +112,62 @@ class Authorization extends React.Component<IRegistrationProps, {
     public render() {
         const { getFieldDecorator } = this.props.form;
 
-        return (
-            <Query query={GET_USER}>
-                {({loading, error, data}: {loading: boolean, error?: ApolloError, data: any}) => {
-                    if (loading) return <span>"загрузка"</span>;
-                    if (error) return <span>'Ошибочка ${error.message}'</span>;
-                    if(!this.state.arrUsr.length) {
-                        this.setState({arrUsr: data.allUsrs.nodes})
-                    }
-                    return (
-                        <div className={styles.userPage}>
-                            <Form className={styles.authForm}>
-                                <div className={styles.authorizationSection}>
-                                    <div>
-                                        <div className={styles.userTitle}>Введите ваш email:</div>
-                                        <Form.Item>
-                                            {getFieldDecorator('email', {
-                                                rules: [{
-                                                    required: true,
-                                                    validator: this.validatorEmail
-                                                }],
-                                            })(<Input className={"userInput"} placeholder="example@gmail.com"/>)}
-                                        </Form.Item>
+        if (localStorage.getItem('email') === "") {
+            return (
+                <Query query={GET_USER}>
+                    {({loading, error, data}: { loading: boolean, error?: ApolloError, data: any }) => {
+                        if (loading) return <span>"загрузка"</span>;
+                        if (error) return <span>'Ошибочка ${error.message}'</span>;
+                        if (!this.state.arrUsr.length) {
+                            this.setState({arrUsr: data.allUsrs.nodes})
+                        }
+                        return (
+                            <div className={styles.userPage}>
+                                <Form className={styles.authForm}>
+                                    <div className={styles.authorizationSection}>
+                                        <div>
+                                            <div className={styles.userTitle}>Введите ваш email:</div>
+                                            <Form.Item>
+                                                {getFieldDecorator('email', {
+                                                    rules: [{
+                                                        required: true,
+                                                        validator: this.validatorEmail
+                                                    }],
+                                                })(<Input className={"userInput"} placeholder="example@gmail.com"/>)}
+                                            </Form.Item>
+                                        </div>
+                                        <div>
+                                            <div className={styles.userTitle}>Введите ваш пароль:</div>
+                                            <Form.Item>
+                                                {getFieldDecorator('password', {
+                                                    rules: [{
+                                                        required: true,
+                                                        message: 'Пожалуйста, заполните поле'
+                                                    }],
+                                                })(<Input className={"userInput"} type="password"
+                                                          placeholder="Пароль"/>)}
+                                            </Form.Item>
+                                        </div>
+                                        <span className={styles.userSeparator}/>
+                                        <Button className={"userButton"} style={{marginTop: "20px"}} key="submit"
+                                                type="primary" onClick={() => {
+                                            this.handleSubmit()
+                                        }}>Войти</Button>
+                                        <div className={styles.textError}>
+                                            <span>{this.state.textErrorFirst}</span>
+                                            <span>{this.state.textErrorSecond}</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <div className={styles.userTitle}>Введите ваш пароль:</div>
-                                        <Form.Item>
-                                            {getFieldDecorator('password', {
-                                                rules: [{
-                                                    required: true,
-                                                    message: 'Пожалуйста, заполните поле'
-                                                }],
-                                            })(<Input className={"userInput"} type="password" placeholder="Пароль"/>)}
-                                        </Form.Item>
-                                    </div>
-                                    <span className={styles.userSeparator}/>
-                                    <Button className={"userButton"} style={{marginTop: "20px"}} key="submit" type="primary" onClick={() => {this.handleSubmit()}}>Войти</Button>
-                                    <div className={styles.textError}>
-                                        <span>{this.state.textErrorFirst}</span>
-                                        <span>{this.state.textErrorSecond}</span>
-                                    </div>
-                                </div>
-                            </Form>
-                        </div>
-                    )
-                }}
-            </Query>
-        );
+                                </Form>
+                            </div>
+                        )
+                    }}
+                </Query>
+            );
+        } else {
+            appHistory.push("/");
+            window.location.reload()
+        }
     }
 }
 

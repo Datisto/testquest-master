@@ -29,46 +29,52 @@ query {
 
 
 export default class ISBTestResults extends React.Component<{}, {
-
+    asap: any
 }>{
     public constructor (props: any) {
         super (props);
+        this.state = {
+            asap: localStorage.getItem('chcd')
+        }
     }
 
     public render() {
-        return (
-            <Query query={GET_USER_ANSWER}>
-                {({loading, error, data}: {loading: boolean, error?: ApolloError, data: any}) => {
-                    if (loading) return <span>"загрузка"</span>;
-                    if (error) return <span>'Ошибочка ${error.message}'</span>;
-                    console.log(data);
-                    const usrMap = new Map();
+        if (this.state.asap != null) {
+            return (
+                <Query query={GET_USER_ANSWER}>
+                    {({loading, error, data}: { loading: boolean, error?: ApolloError, data: any }) => {
+                        if (loading) return <span>"загрузка"</span>;
+                        if (error) return <span>'Ошибочка ${error.message}'</span>;
+                        console.log(data);
+                        const usrMap = new Map();
 
-                    data.allUserAnswers.nodes.forEach((ans: any) => {
-                        usrMap.set(ans.usrByUserId.id, ans);
-                    });
+                        data.allUserAnswers.nodes.forEach((ans: any) => {
+                            usrMap.set(ans.usrByUserId.id, ans);
+                        });
 
-                    return (
-                        <div>
-                            {[...usrMap.values()].map((userAnswer: any) => (
-                                <div>
-                                    <span>{userAnswer.courseId}</span>
-                                    <span>{userAnswer.groupName}</span>
-                                    <span>{userAnswer.usrByUserId.fullName}</span>
-                                    {userAnswer.usrByUserId.userAnswersByUserId.nodes.map((userAnswerById: any) => (
-                                       <div>
-                                        <span>{userAnswerById.taskNumber}</span>
-                                        <span style={(userAnswerById.answerOptionByAnswerId.answerCorrect) ? {color: "green"} : {color: "red"}}>{userAnswerById.answerOptionByAnswerId.answerOption}</span>
-                                        <span>{userAnswerById.answerOptionByAnswerId.answerCorrect}</span>
-                                       </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                    );
+                        return (
+                            <div>
+                                {[...usrMap.values()].map((userAnswer: any) => (
+                                    <div>
+                                        <span>{userAnswer.courseId}</span>
+                                        <span>{userAnswer.groupName}</span>
+                                        <span>{userAnswer.usrByUserId.fullName}</span>
+                                        {userAnswer.usrByUserId.userAnswersByUserId.nodes.map((userAnswerById: any) => (
+                                            <div>
+                                                <span>{userAnswerById.taskNumber}</span>
+                                                <span
+                                                    style={(userAnswerById.answerOptionByAnswerId.answerCorrect) ? {color: "green"} : {color: "red"}}>{userAnswerById.answerOptionByAnswerId.answerOption}</span>
+                                                <span>{userAnswerById.answerOptionByAnswerId.answerCorrect}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        );
 
-                }}
-            </Query>
-        )
+                    }}
+                </Query>
+            )
+        }
     }
 };

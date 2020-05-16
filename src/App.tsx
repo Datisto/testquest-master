@@ -13,6 +13,10 @@ import BasicFirstAid from "./components/courses/BasicFirstAid";
 import StateDefenseFundamentals from "./components/courses/StateDefenseFundamentals";
 import Profile from "./components/profile/Profile";
 import ISBTestResults from "./components/teacher_panel/ISBTestResults";
+import ATTestResults from "./components/teacher_panel/ATTestResults";
+import BFATestResults from "./components/teacher_panel/BFATestResults";
+import BHLTestResults from "./components/teacher_panel/BHLTestResults";
+import SDFTestResults from "./components/teacher_panel/SDFTestResults";
 
 import {createBrowserHistory} from 'history';
 import InputQuestion from "./components/inputquestion/InputQuestion";
@@ -23,6 +27,7 @@ import WrappedAntiTerrorTest from "./components/test_page/AntiTerrorTest";
 import WrappedBasicFirstAidTest from "./components/test_page/BasicFirstAidTest";
 import WrappedBasicHealthyLifeTest from "./components/test_page/BasicHealthyLifeTest";
 import WrappedStateDefenseFundamentalsTest from "./components/test_page/StateDefenseFundamentalsTest";
+import TeacherPanel from "./components/teacher_panel/TeacherPanel";
 
 class AppHeaderInner extends React.Component<{}, {
   mode?: string
@@ -80,8 +85,23 @@ const App: React.FC = () => {
               <Route path="/state-defense/test">
               <WrappedStateDefenseFundamentalsTest/>
             </Route>
+              <Route path="/at-test-results">
+              <ATTestResults/>
+            </Route>
+              <Route path="/bfa-test-results">
+              <BFATestResults/>
+            </Route>
+              <Route path="/bhl-test-results">
+                <BHLTestResults/>
+              </Route>
+              <Route path="/sdf-test-results">
+                <SDFTestResults/>
+              </Route>
               <Route path="/course-example">
                 <Course_example/>
+              </Route>
+              <Route path="/teacher-panel">
+                <TeacherPanel/>
               </Route>
               <Route path="/profile">
                 <Profile/>

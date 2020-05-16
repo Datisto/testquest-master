@@ -14,6 +14,7 @@ const  GET_COURSE_PAGE = gql`
       pageNumber
       pageText
       pageImg
+      pageTitle
     }
   }
 }
