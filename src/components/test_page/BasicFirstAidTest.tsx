@@ -34,12 +34,14 @@ query {
 `;
 
 const ADD_RESULT = gql`
-    mutation ($userId: BigInt!, $answerId: BigInt!) {
+    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!) {
         createUserAnswer (
             input: {
                 userAnswer: {
                     userId: $userId
                     answerId: $answerId
+                    courseId: $courseId
+                    groupName: $groupName
                 }
             }
         ) {
@@ -54,7 +56,7 @@ interface ITestPageProps {
     form?: any
 }
 
-class TestPage extends React.Component<ITestPageProps, {
+class BasicFirstAidTest extends React.Component<ITestPageProps, {
     value: any,
     i: number,
     arrAnswer: any[],
@@ -94,11 +96,11 @@ class TestPage extends React.Component<ITestPageProps, {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
                 if ((this.state.i >= 0) && (this.state.i < (this.state.arrLength - 1))) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId } });
+                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName') } });
                     this.setState({i: this.state.i + 1});
                 }
                 else if (this.state.i === (this.state.arrLength - 1)) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId } });
+                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName') } });
                     appHistory.push('/');
                 }
             }
@@ -115,7 +117,8 @@ class TestPage extends React.Component<ITestPageProps, {
                     if (loading) return <span>"загрузка"</span>;
                     if (error) return <span>'Ошибочка ${error.message}'</span>;
                     if (!this.state.arrLength) {
-                        this.setState({arrLength: data.courseById.tasksByCourseId.nodes.length})
+                        this.setState({arrLength: data.courseById.tasksByCourseId.nodes.length});
+                        this.setState({arrAnswer: data.courseById.tasksByCourseId.nodes})
                     }
                     console.log(this.state.arrLength);
                     console.log(data);
@@ -153,6 +156,6 @@ class TestPage extends React.Component<ITestPageProps, {
     }
 }
 
-const WrappedTestPage = Form.create({ name: 'test-page' })(TestPage);
-export default WrappedTestPage;
+const WrappedBasicFirstAidTest = Form.create({ name: 'test-page' })(BasicFirstAidTest);
+export default WrappedBasicFirstAidTest;
 

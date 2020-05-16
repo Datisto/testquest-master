@@ -7,7 +7,7 @@ import styles from "./Courses.module.scss";
 
 const  GET_COURSE_PAGE = gql`
     query {
-  allPages (condition: {courseId: "1"} ){
+  allPages (condition: {courseId: "5"} ){
     nodes {
       id
       courseId
@@ -19,7 +19,7 @@ const  GET_COURSE_PAGE = gql`
 }
 `;
 
-export default class IntegratedSecurityBasics extends React.Component<{}, {
+export default class StateDefenseFundamentals extends React.Component<{}, {
     current: any
 }>{
     public constructor (props: any) {

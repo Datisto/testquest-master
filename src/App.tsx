@@ -7,13 +7,22 @@ import Registration from "./components/user/Registration";
 import Test from "./components/test/Test";
 import Course_example from "./components/course_example/Course_example";
 import IntegratedSecurityBasics from "./components/courses/IntegratedSecurityBasics";
+import AntiTerror from "./components/courses/AntiTerror";
+import BasicHealthyLife from "./components/courses/BasicHealthyLife";
+import BasicFirstAid from "./components/courses/BasicFirstAid";
+import StateDefenseFundamentals from "./components/courses/StateDefenseFundamentals";
 import Profile from "./components/profile/Profile";
+import ISBTestResults from "./components/teacher_panel/ISBTestResults";
 
 import {createBrowserHistory} from 'history';
 import InputQuestion from "./components/inputquestion/InputQuestion";
 import CourseList from './components/course_list/CourseList';
 import WrappedAuthorization from "./components/user/Authorization";
-import WrappedTestPage from "./components/test_page/TestPage";
+import WrappedIntegratedSecurityBasicsTest from "./components/test_page/IntegratedSecurityBasicsTest";
+import WrappedAntiTerrorTest from "./components/test_page/AntiTerrorTest";
+import WrappedBasicFirstAidTest from "./components/test_page/BasicFirstAidTest";
+import WrappedBasicHealthyLifeTest from "./components/test_page/BasicHealthyLifeTest";
+import WrappedStateDefenseFundamentalsTest from "./components/test_page/StateDefenseFundamentalsTest";
 
 class AppHeaderInner extends React.Component<{}, {
   mode?: string
@@ -56,10 +65,22 @@ const App: React.FC = () => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-              <Route path="/test-page">
-                <WrappedTestPage/>
+              <Route path="/security-basics/test">
+                <WrappedIntegratedSecurityBasicsTest/>
               </Route>
-              <Route path="/course_example">
+              <Route path="/anti-terror/test">
+              <WrappedAntiTerrorTest/>
+            </Route>
+              <Route path="/basic-aid/test">
+              <WrappedBasicFirstAidTest/>
+            </Route>
+              <Route path="/basic-health/test">
+              <WrappedBasicHealthyLifeTest/>
+            </Route>
+              <Route path="/state-defense/test">
+              <WrappedStateDefenseFundamentalsTest/>
+            </Route>
+              <Route path="/course-example">
                 <Course_example/>
               </Route>
               <Route path="/profile">
@@ -74,8 +95,23 @@ const App: React.FC = () => {
               <Route path="/input">
                 <InputQuestion/>
               </Route>
+              <Route path="/isb-test-results">
+                <ISBTestResults/>
+              </Route>
               <Route path="/security-basics">
                 <IntegratedSecurityBasics/>
+              </Route>
+              <Route path="/anti-terror">
+                <AntiTerror/>
+              </Route>
+              <Route path="/basic-health">
+                <BasicHealthyLife/>
+              </Route>
+              <Route path="/basic-aid">
+                <BasicFirstAid/>
+              </Route>
+              <Route path="/state-defense">
+                <StateDefenseFundamentals/>
               </Route>
               <Route path="/">
                 <CourseList/>
