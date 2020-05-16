@@ -143,8 +143,8 @@ class IntegratedSecurityBasicsTest extends React.Component<ITestPageProps, {
                                         </Form.Item>
                                         <span style={{margin: "5px 0 22px 0"}} className={styles.testPageSeparator}/>
                                         <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>{(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? ("Закончить текст") : ("Отправить ответ")}</Button>
-                                        {/*<Button onClick={this.showModal}>Профиль</Button>*/}
-                                        {/*<Profile isVisible={this.state.visible} onClose={this.handleCancel}/>*/}
+                                        <Button onClick={this.showModal}>Профиль</Button>
+                                        <Profile isVisible={this.state.visible} onClose={this.handleCancel}/>
                                     </Form>
                                 )}
                             </Mutation>

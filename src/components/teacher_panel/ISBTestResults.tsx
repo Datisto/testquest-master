@@ -10,6 +10,7 @@ query {
             courseId
             groupName
             usrByUserId {
+                id
                 fullName
                 userAnswersByUserId(condition: {courseId: "1"}, orderBy: TASK_NUMBER_ASC) {
                     nodes{
@@ -41,10 +42,15 @@ export default class ISBTestResults extends React.Component<{}, {
                     if (loading) return <span>"загрузка"</span>;
                     if (error) return <span>'Ошибочка ${error.message}'</span>;
                     console.log(data);
+                    const usrMap = new Map();
+
+                    data.allUserAnswers.nodes.forEach((ans: any) => {
+                        usrMap.set(ans.usrByUserId.id, ans);
+                    });
 
                     return (
                         <div>
-                            {data.allUserAnswers.nodes.map((userAnswer: any) => (
+                            {[...usrMap.values()].map((userAnswer: any) => (
                                 <div>
                                     <span>{userAnswer.courseId}</span>
                                     <span>{userAnswer.groupName}</span>
