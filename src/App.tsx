@@ -56,7 +56,7 @@ const App: React.FC = () => {
               <Route path="/registration">
                 <Registration/>
               </Route>
-              <Route path="/test_page">
+              <Route path="/test-page">
                 <WrappedTestPage/>
               </Route>
               <Route path="/course_example">
@@ -78,7 +78,7 @@ const App: React.FC = () => {
                 <IntegratedSecurityBasics/>
               </Route>
               <Route path="/">
-                <WrappedTestPage/>
+                <CourseList/>
               </Route>
             </Switch>
           </div>
