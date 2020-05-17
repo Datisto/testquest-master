@@ -8,3 +8,36 @@
     color: #0064aa;
   }
 }
+
+.profileButtonInModal {
+  height: 45px !important;
+  width: 200px !important;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.profileLinkButton {
+  align-items: center;
+  height: 50px !important;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+  color: #1890ff;
+  line-height: 1;
+
+  padding: 0 !important;
+  border: none transparent !important;
+  box-shadow: none !important;
+  --antd-wave-shadow-color: transparent !important;
+
+  margin-bottom: -20px !important;
+
+  &:hover {
+    color: black;
+    transition: 25ms ease;
+  }
+}

@@ -34,7 +34,23 @@
   }
 }
 
-.userLinkButton {
+.registrationLinks {
+  display: grid;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  grid-template-columns: 1.05fr 0.95fr;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #656565;
+  line-height: 1.25;
+
+  margin-top: 20px;
+}
+
+.regLinkButton {
   height: 20px !important;
 
   font-family: 'Roboto', sans-serif;
@@ -51,5 +67,71 @@
   &:hover {
     color: black;
     transition: 25ms ease;
+  }
+}
+
+.authLinkButton {
+  height: 21px !important;
+  width: 145px !important;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: #1890ff;
+  line-height: 1.25;
+
+  border-bottom: 1px #1890ff dotted !important;
+
+  padding: 0 !important;
+  border-top: none transparent !important;
+  border-left: none transparent !important;
+  border-right: none transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  --antd-wave-shadow-color: transparent !important;
+
+  &:hover {
+    color: black;
+    border-bottom: 1px black dotted !important;
+    transition: 25ms ease;
+  }
+}
+
+.regLinkButton {
+  &.ant-btn {
+    height: 21px !important;
+    width: 117px !important;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #1890ff;
+    line-height: 1.25;
+
+    border-bottom: 1px #1890ff dotted !important;
+
+    padding: 0 !important;
+    border-top: none transparent !important;
+    border-left: none transparent !important;
+    border-right: none transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    --antd-wave-shadow-color: transparent !important;
+
+    &:hover {
+      color: black;
+      border-bottom: 1px black dotted !important;
+      transition: 25ms ease;
+    }
+  }
+}
+
+.regSelect {
+  &.ant-select-selection {
+    width: 350px !important;
+  }
+
+  & .ant-select-selection--single {
+    height: 40px !important;
   }
 }

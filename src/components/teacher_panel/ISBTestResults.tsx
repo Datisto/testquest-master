@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ApolloError, gql} from "apollo-boost";
 import { Query } from "react-apollo";
-import {Button, Pagination} from "antd";
+import styles from "./TeacherPanel.module.scss";
 
 const GET_USER_ANSWER = gql`
 query {
@@ -39,7 +39,7 @@ export default class ISBTestResults extends React.Component<{}, {
     }
 
     public render() {
-        if (this.state.asap != null) {
+        if (this.state.asap !== "") {
             return (
                 <Query query={GET_USER_ANSWER}>
                     {({loading, error, data}: { loading: boolean, error?: ApolloError, data: any }) => {
@@ -53,22 +53,30 @@ export default class ISBTestResults extends React.Component<{}, {
                         });
 
                         return (
-                            <div>
-                                {[...usrMap.values()].map((userAnswer: any) => (
-                                    <div>
-                                        <span>{userAnswer.courseId}</span>
-                                        <span>{userAnswer.groupName}</span>
-                                        <span>{userAnswer.usrByUserId.fullName}</span>
-                                        {userAnswer.usrByUserId.userAnswersByUserId.nodes.map((userAnswerById: any) => (
-                                            <div>
-                                                <span>{userAnswerById.taskNumber}</span>
-                                                <span
-                                                    style={(userAnswerById.answerOptionByAnswerId.answerCorrect) ? {color: "green"} : {color: "red"}}>{userAnswerById.answerOptionByAnswerId.answerOption}</span>
-                                                <span>{userAnswerById.answerOptionByAnswerId.answerCorrect}</span>
+                            <div className={styles.pageResult}>
+                                <span className={styles.resultHeader} style={{marginTop: "10vh", color: "#656565"}}>РЕЗУЛЬТАТЫ ТЕСТА ПО КУРСУ:</span>
+                                <span className={styles.resultHeader} style={{fontWeight: "normal"}}>ОСНОВЫ КОМПЛЕКСНОЙ БЕЗОПАСНОСТИ</span>
+                                <span className={styles.resultSeparator}/>
+                                <div className={styles.resultList}>
+                                    {[...usrMap.values()].map((userAnswer: any) => (
+                                        <div className={styles.userNotation}>
+                                            <span>{userAnswer.groupName}</span>
+                                            <span style={{display: "flex", justifyContent: "center"}}>|</span>
+                                            <span>{userAnswer.usrByUserId.fullName}</span>
+                                            <span style={{display: "flex", justifyContent: "center"}}>|</span>
+                                            <div className={styles.userResult}>
+                                                {userAnswer.usrByUserId.userAnswersByUserId.nodes.map((userAnswerById: any) => (
+                                                    <div>
+                                                        <span>{userAnswerById.taskNumber}.</span>
+                                                        <span style={(userAnswerById.answerOptionByAnswerId.answerCorrect) ? {color: "green"} : {color: "red"}}>
+                                                            {userAnswerById.answerOptionByAnswerId.answerOption}&nbsp;&nbsp;
+                                                        </span>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
-                                ))}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         );
 

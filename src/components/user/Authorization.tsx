@@ -5,9 +5,10 @@ import Icon from "@ant-design/icons/lib/components/Icon";
 import { Form } from '@ant-design/compatible';
 import styles from "./User.module.scss";
 import "./User.scss";
-import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import {appHistory} from "../../App";
+import {Link} from "react-router-dom";
+import autobind from "autobind-decorator";
 
 const GET_USER = gql`
     query {
@@ -34,6 +35,7 @@ interface IRegistrationProps {
 
 class Authorization extends React.Component<IRegistrationProps, {
     arrUsr: any[],
+    res: any[],
     test: string,
     textErrorFirst: string,
     textErrorSecond: string
@@ -42,32 +44,27 @@ class Authorization extends React.Component<IRegistrationProps, {
         super(props);
         this.state = {
             arrUsr: [],
+            res: [],
             test: "",
             textErrorFirst: "",
             textErrorSecond: ""
         }
     }
 
-    openNotification = () => {
-        notification.open({
-            message: 'Успешная регистрация!',
-            description: 'Вы были успешно зарегистрированы и можете войти под своими учетными даными',
-            icon: <Icon type="check-circle" style={{ color: '#52c41a' }} />,
-            duration: 6,
-        });
-    };
-
     handleSubmit = () => {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                // this.props.form.resetFields();
             }
 
             const userDate = this.state.arrUsr.find(v => (v.email === values.email) && (v.password === values.password));
             if (userDate) {
+                this.setState({res: userDate.email});
+                this.setState({res: userDate.password});
+
                 localStorage.setItem('email', values.email);
-                localStorage.setItem('usr_id', userDate.id);
+                localStorage.setItem('usrId', userDate.id);
+
                 if (userDate.role) {
                     localStorage.setItem('chcd', '1');
                 } else {
@@ -86,7 +83,6 @@ class Authorization extends React.Component<IRegistrationProps, {
 
                 appHistory.push('/');
                 window.location.reload();
-                this.openNotification();
             } else {
                 this.setState({textErrorFirst: "Ошибка! Пользователь не найден,"})
                 this.setState({textErrorSecond: "или учетные данные некорректны"})
@@ -94,7 +90,7 @@ class Authorization extends React.Component<IRegistrationProps, {
                 localStorage.setItem('email', "");
                 localStorage.setItem('gender', "");
                 localStorage.setItem('usr_id', "");
-                localStorage.setItem('usr_role', "");
+                localStorage.setItem('chcd', "");
                 localStorage.setItem('password', "");
                 localStorage.setItem('fullName', "");
                 localStorage.setItem('groupName', "");
@@ -109,6 +105,12 @@ class Authorization extends React.Component<IRegistrationProps, {
         callback()
     };
 
+    @autobind
+    private openLink() {
+        appHistory.push("/registration");
+        window.location.reload()
+    }
+
     public render() {
         const { getFieldDecorator } = this.props.form;
 
@@ -121,6 +123,7 @@ class Authorization extends React.Component<IRegistrationProps, {
                         if (!this.state.arrUsr.length) {
                             this.setState({arrUsr: data.allUsrs.nodes})
                         }
+                        console.log(localStorage.getItem('chcd'))
                         return (
                             <div className={styles.userPage}>
                                 <Form className={styles.authForm}>
@@ -149,10 +152,11 @@ class Authorization extends React.Component<IRegistrationProps, {
                                             </Form.Item>
                                         </div>
                                         <span className={styles.userSeparator}/>
-                                        <Button className={"userButton"} style={{marginTop: "20px"}} key="submit"
-                                                type="primary" onClick={() => {
-                                            this.handleSubmit()
-                                        }}>Войти</Button>
+                                        <div className={styles.authorizationLinks} style={{marginTop: "5px"}}>
+                                            <span>Ещё не зарегистрированы?&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <Button className={"authLinkButton"} style={{marginTop: "3px"}} onClick={() => this.openLink()}>Зарегистрироваться</Button>
+                                        </div>
+                                        <Button className={"userButton"} style={{marginTop: "5px"}} key="submit" type="primary" onClick={() => {this.handleSubmit()}}>Войти</Button>
                                         <div className={styles.textError}>
                                             <span>{this.state.textErrorFirst}</span>
                                             <span>{this.state.textErrorSecond}</span>

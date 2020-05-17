@@ -1,0 +1,73 @@
+@import "../../cofig";
+
+.profileButton {
+  height: 35px !important;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #0064aa;
+  line-height: 1;
+
+  padding: 0 !important;
+  border: none transparent !important;
+  box-shadow: none !important;
+  --antd-wave-shadow-color: transparent !important;
+
+  &:hover {
+    color: black;
+    transition: 25ms ease;
+  }
+}
+
+.exitButton {
+  display: grid !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 35px !important;
+  width: 25px !important;
+
+  padding: 0 !important;
+  border: none transparent !important;
+  box-shadow: none !important;
+  --antd-wave-shadow-color: transparent !important;
+}
+
+@mixin courseButton {
+  &.ant-btn {
+    display: grid !important;
+    height: 100px !important;
+    width: 800px !important;
+    margin: 0 calc((100vw - 800px)/2) 25px calc((100vw - 800px)/2) !important;
+    border: 1.25px solid #063561 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    --antd-wave-shadow-color: transparent !important;
+  }
+}
+
+.courseButton1 {
+  @include courseButton;
+  background-image: url("/static/img/course1.png") !important;
+}
+
+.courseButton2 {
+  @include courseButton;
+  background-image: url("/static/img/course2.png") !important;
+}
+
+.courseButton3 {
+  @include courseButton;
+  background-image: url("/static/img/course3.png") !important;
+}
+
+.courseButton4 {
+  @include courseButton;
+  background-image: url("/static/img/course4.png") !important;
+}
+
+.courseButton5 {
+  @include courseButton;
+  background-image: url("/static/img/course5.png") !important;
+}

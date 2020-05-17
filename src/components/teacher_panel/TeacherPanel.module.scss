@@ -1,0 +1,84 @@
+@import "../../cofig";
+
+.pageTeacherPanel {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+}
+
+.teacherPanel {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 400px;
+  grid-template-rows: 37px 80px 80px 80px 80px 80px;
+}
+
+.teacherPanelHeader {
+  @include flexRowRelative;
+  justify-content: center;
+  align-items: flex-start;
+  height: 37px;
+  width: 400px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #656565;
+  line-height: 1;
+}
+
+.pageResult {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  height: 100vh;
+  width: 100vw;
+
+  padding-left: 15%;
+}
+
+.resultList {
+  @include flexColumnRelative;
+}
+
+.resultHeader {
+  @include flexRowRelative;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: #0064aa;
+  line-height: 1;
+}
+
+.userNotation {
+  display: grid;
+  align-items: center;
+  height: 35px;
+  width: calc(100vw - 15%);
+  grid-template-columns: 60px 30px 400px 30px 1fr;
+  grid-template-rows: 35px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.resultSeparator {
+  @include flexRowRelative;
+  height: 1px;
+  width: 730px;
+  background: silver;
+
+  margin: 5px 0 20px 0;
+}
+
+.userResult {
+  @include flexRowRelative;
+}

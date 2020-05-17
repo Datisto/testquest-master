@@ -34,7 +34,7 @@ query {
 `;
 
 const ADD_RESULT = gql`
-    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!, $taskId: BigInt!) {
+    mutation addResult ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!) {
         createUserAnswer (
             input: {
                 userAnswer: {
@@ -43,7 +43,6 @@ const ADD_RESULT = gql`
                     courseId: $courseId
                     groupName: $groupName
                     taskNumber: $taskNumber
-                    taskId: $taskId
                 }
             }
         ) {
@@ -51,6 +50,23 @@ const ADD_RESULT = gql`
                 id
             }
         }
+    }
+`;
+
+const ADD_FINISH = gql`
+    mutation addFinish ($courseId: BigInt!, $userId: BigInt! ) {
+      createUserCourseResult (
+        input: {
+          userCourseResult: {
+            courseId: $courseId
+            userId: $userId
+          }
+        }
+      ) {
+        userCourseResult {
+          id
+        }
+      }
     }
 `;
 
@@ -97,16 +113,19 @@ class StateDefenseFundamentalsTest extends React.Component<ITestPageProps, {
     private postResult(createResult: any) {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
-                if ((this.state.i >= 0) && (this.state.i < (this.state.arrLength - 1))) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
+                createResult({ variables: { userId: localStorage.getItem('usrId'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber }});
+                if (this.state.i !== (this.state.arrLength - 1)) {
                     this.setState({i: this.state.i + 1});
-                }
-                else if (this.state.i === (this.state.arrLength - 1)) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
-                    appHistory.push('/');
                 }
             }
         });
+    }
+
+    @autobind
+    private postFinish(createFinish: any) {
+        createFinish({ variables: { userId: localStorage.getItem('usrId'), courseId: this.state.arrAnswer[this.state.i].courseId} });
+        appHistory.push('/');
+        window.location.reload();
     }
 
 
@@ -143,9 +162,15 @@ class StateDefenseFundamentalsTest extends React.Component<ITestPageProps, {
                                             )}
                                         </Form.Item>
                                         <span style={{margin: "5px 0 22px 0"}} className={styles.testPageSeparator}/>
-                                        <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>{(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? ("Закончить текст") : ("Отправить ответ")}</Button>
-                                        {/*<Button onClick={this.showModal}>Профиль</Button>*/}
-                                        {/*<Profile isVisible={this.state.visible} onClose={this.handleCancel}/>*/}
+                                        {(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? (
+                                            <Mutation mutation={ADD_FINISH}>
+                                                {(createFinish: any) => (
+                                                    <Button className={"testPageButton"} type="primary" onClick={() => {this.postFinish(createFinish); this.postResult(createResult)}}>Закончить текст</Button>
+                                                )}
+                                            </Mutation>
+                                        ) : (
+                                            <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>Отправить ответ</Button>
+                                        )}
                                     </Form>
                                 )}
                             </Mutation>

@@ -8,7 +8,6 @@ import autobind from "autobind-decorator";
 import styles from "./TestPage.module.scss";
 import "./TestPage.scss";
 import { Mutation } from "react-apollo";
-import Profile from "../profile/Profile";
 import {appHistory} from "../../App";
 
 const GET_TASK = gql`
@@ -16,6 +15,7 @@ query {
   courseById (id: "2") {
     tasksByCourseId(orderBy: TASK_NUMBER_ASC) {
       nodes {
+        id
         courseId
         taskText
         taskNumber
@@ -24,7 +24,6 @@ query {
             id
             answerOption
             answerText
-            taskId
           }
         }
       }
@@ -34,7 +33,7 @@ query {
 `;
 
 const ADD_RESULT = gql`
-    mutation ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!, $taskId: BigInt!) {
+    mutation addResult ($userId: BigInt!, $answerId: BigInt!, $courseId: BigInt!, $groupName: String!, $taskNumber: Int!) {
         createUserAnswer (
             input: {
                 userAnswer: {
@@ -43,7 +42,6 @@ const ADD_RESULT = gql`
                     courseId: $courseId
                     groupName: $groupName
                     taskNumber: $taskNumber
-                    taskId: $taskId
                 }
             }
         ) {
@@ -55,7 +53,7 @@ const ADD_RESULT = gql`
 `;
 
 const ADD_FINISH = gql`
-    mutation ($courseId: BigInt!, $userId: BigInt! ) {
+    mutation addFinish ($courseId: BigInt!, $userId: BigInt! ) {
       createUserCourseResult (
         input: {
           userCourseResult: {
@@ -114,22 +112,19 @@ class AntiTerrorTest extends React.Component<ITestPageProps, {
     private postResult(createResult: any) {
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
-                    createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId } });
+                createResult({ variables: { userId: localStorage.getItem('usrId'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber }});
+                if (this.state.i !== (this.state.arrLength - 1)) {
                     this.setState({i: this.state.i + 1});
+                }
             }
         });
     }
 
     @autobind
-    private postFinish(createFinish: any, createResult: any) {
-        this.props.form.validateFields((err: any, values: any) => {
-            if (!err) {
-                createFinish({ variables: { userId: localStorage.getItem('usr_id'), courseId: this.state.arrAnswer[this.state.i].courseId} });
-                createResult({ variables: { userId: localStorage.getItem('usr_id'), answerId: values.answerId, courseId: this.state.arrAnswer[this.state.i].courseId, groupName: localStorage.getItem('groupName'), taskNumber: this.state.arrAnswer[this.state.i].taskNumber, taskId: this.state.arrAnswer[this.state.i].taskId  } });
-                appHistory.push('/');
-                window.location.reload();
-            }
-        });
+    private postFinish(createFinish: any) {
+        createFinish({ variables: { userId: localStorage.getItem('usrId'), courseId: this.state.arrAnswer[this.state.i].courseId} });
+        appHistory.push('/');
+        window.location.reload();
     }
 
 
@@ -147,7 +142,6 @@ class AntiTerrorTest extends React.Component<ITestPageProps, {
                     }
                     console.log(this.state.arrLength);
                     console.log(data);
-                    console.log(localStorage.getItem('groupName'));
 
                     return (
                         <div className={styles.testPage}>
@@ -170,15 +164,12 @@ class AntiTerrorTest extends React.Component<ITestPageProps, {
                                         {(this.state.i === (data.courseById.tasksByCourseId.nodes.length - 1)) ? (
                                             <Mutation mutation={ADD_FINISH}>
                                                 {(createFinish: any) => (
-                                                    <Button className={"testPageButton"} type="primary" onClick={() => this.postFinish(createResult, createFinish)}>Закончить текст</Button>
+                                                    <Button className={"testPageButton"} type="primary" onClick={() => {this.postFinish(createFinish); this.postResult(createResult)}}>Закончить текст</Button>
                                                 )}
                                             </Mutation>
                                         ) : (
                                             <Button className={"testPageButton"} type="primary" onClick={() => this.postResult(createResult)}>Отправить ответ</Button>
                                         )}
-
-                                        {/*<Button onClick={this.showModal}>Профиль</Button>*/}
-                                        {/*<Profile isVisible={this.state.visible} onClose={this.handleCancel}/>*/}
                                     </Form>
                                 )}
                             </Mutation>

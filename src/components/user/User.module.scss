@@ -10,8 +10,8 @@
 
 .regForm {
   display: grid;
-  grid-template-columns: 350px 40px 350px;
-  grid-template-rows: 336px;
+  grid-template-columns: 350px;
+  grid-template-rows: 524px;
 }
 
 .authForm {
@@ -30,13 +30,13 @@
 .registrationSection {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 90px 90px 90px 1px 65px;
+  grid-template-rows: 90px 90px 80px 65px 75px 30px 50px 44px;
 }
 
 .authorizationSection {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 90px 90px 1px 65px 44px;
+  grid-template-rows: 90px 90px 1px 35px 50px 44px;
 }
 
 .userSeparator {
@@ -46,20 +46,36 @@
   background: #c0c0c0;
 }
 
-.registrationLinks {
-  display: grid;
+.authorizationLinks {
+  @include flexRowRelative;
+  justify-content: center;
   align-items: center;
-  height: 45px;
+  height: 30px;
   width: 100%;
-  grid-template-columns: 1.05fr 0.95fr;
 
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 15px;
   color: #656565;
   line-height: 1.25;
+}
 
-  margin-top: 20px;
+.regRadioBlock {
+  @include flexColumnRelative;
+  align-items: center;
+}
+
+.regRadioGroup {
+  @include flexRowRelative;
+  align-items: center;
+}
+
+.regRadioButton {
+  @include flexRowRelative;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 19px;
 }
 
 .registrationLinkBlock {
