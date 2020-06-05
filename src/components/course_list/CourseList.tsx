@@ -118,31 +118,31 @@ export default class CourseList extends React.Component<{}, {
                                 <div className={styles.courseListMenu}>
                                     <Button className="courseButton6" onClick={() => this.openCourse5()}>
                                         <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[5].courseNumber}.&nbsp;{data.allCourses.nodes[5].courseName}</span>
+                                            <span className={styles.courseListMenuTitle}>1.&nbsp;{data.allCourses.nodes[5].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[5].courseAnnotation}</span>
                                         </div>
                                     </Button>
                                     <Button className="courseButton1" onClick={() => this.openCourse1()}>
                                         <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[0].courseNumber}.&nbsp;{data.allCourses.nodes[0].courseName}</span>
+                                            <span className={styles.courseListMenuTitle}>2.&nbsp;{data.allCourses.nodes[0].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[0].courseAnnotation}</span>
                                         </div>
                                     </Button>
                                     <Button className="courseButton2" onClick={() => this.openCourse2()}>
                                         <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[1].courseNumber}.&nbsp;{data.allCourses.nodes[1].courseName}</span>
+                                            <span className={styles.courseListMenuTitle}>3.courseNumber}.&nbsp;{data.allCourses.nodes[1].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[1].courseAnnotation}</span>
                                         </div>
                                     </Button>
                                     <Button className="courseButton3" onClick={() => this.openCourse3()}>
                                         <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[2].courseNumber}.&nbsp;{data.allCourses.nodes[2].courseName}</span>
+                                            <span className={styles.courseListMenuTitle}>4.&nbsp;{data.allCourses.nodes[2].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[2].courseAnnotation}</span>
                                         </div>
                                     </Button>
                                     <Button className="courseButton4" onClick={() => this.openCourse4()}>
                                         <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[3].courseNumber}.&nbsp;{data.allCourses.nodes[3].courseName}</span>
+                                            <span className={styles.courseListMenuTitle}>5.&nbsp;{data.allCourses.nodes[3].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[3].courseAnnotation}</span>
                                         </div>
                                     </Button>
