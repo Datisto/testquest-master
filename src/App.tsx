@@ -27,6 +27,7 @@ import TeacherPanel from "./components/teacher_panel/TeacherPanel";
 import ProgrammerWorkplaceSafety from "./components/courses/ProgrammerWorkplaceSafety";
 import ProgrammerWorkplaceSafetyTest from "./components/test_page/ProgrammerWorkplaceSafetyTest";
 import WrappedProgrammerWorkplaceSafetyTest from './components/test_page/ProgrammerWorkplaceSafetyTest';
+import WSTestResults from "./components/teacher_panel/WSTestResults";
 
 class AppHeaderInner extends React.Component<{}, {
   mode?: string
@@ -97,6 +98,9 @@ const App: React.FC = () => {
               {/*-------------------------*/}
               <Route path="/teacher-panel">
                 <TeacherPanel/>
+              </Route>
+              <Route path="/pws-test-results">
+                <WSTestResults/>
               </Route>
               <Route path="/isb-test-results">
                 <ISBTestResults/>

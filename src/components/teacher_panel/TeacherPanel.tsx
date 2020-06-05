@@ -17,7 +17,7 @@ export default class TeacherPanel extends React.Component<{}, {
 
     @autobind
     private lsb() {
-        appHistory.push("/isb-test-results");
+        appHistory.push("/pws-test-results");
         window.location.reload();
     }
 
@@ -52,7 +52,7 @@ export default class TeacherPanel extends React.Component<{}, {
                 <div className={styles.pageTeacherPanel}>
                     <div className={styles.teacherPanel}>
                         <span className={styles.teacherPanelHeader}>Результаты тестов по курсам:</span>
-                        <Button className="resultButton" type="primary" onClick={() => this.lsb()}>Основы комплексной безопасности</Button>
+                        <Button className="resultButton" type="primary" onClick={() => this.lsb()}><div style={{display: "flex", flexDirection: "column"}}><span>Техника безопасности на</span><span>рабочем месте программиста</span></div></Button>
                         <Button className="resultButton" type="primary" onClick={() => this.att()}><div style={{display: "flex", flexDirection: "column"}}><span>Основы противодействия терроризму и</span><span>экстремизму в Российской Федерации</span></div></Button>
                         <Button className="resultButton" type="primary" onClick={() => this.bhl()}>Основы здорового образа жизни</Button>
                         <Button className="resultButton" type="primary" onClick={() => this.bfa()}><div style={{display: "flex", flexDirection: "column"}}><span>Основы медицинских знаний</span><span>и оказания первой помощи</span></div></Button>
