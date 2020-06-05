@@ -24,6 +24,9 @@ import WrappedBasicFirstAidTest from "./components/test_page/BasicFirstAidTest";
 import WrappedBasicHealthyLifeTest from "./components/test_page/BasicHealthyLifeTest";
 import WrappedStateDefenseFundamentalsTest from "./components/test_page/StateDefenseFundamentalsTest";
 import TeacherPanel from "./components/teacher_panel/TeacherPanel";
+import ProgrammerWorkplaceSafety from "./components/courses/ProgrammerWorkplaceSafety";
+import ProgrammerWorkplaceSafetyTest from "./components/test_page/ProgrammerWorkplaceSafetyTest";
+import WrappedProgrammerWorkplaceSafetyTest from './components/test_page/ProgrammerWorkplaceSafetyTest';
 
 class AppHeaderInner extends React.Component<{}, {
   mode?: string
@@ -54,6 +57,9 @@ const App: React.FC = () => {
             <AppHeader/>
             <Switch>
               {/*-------------------------*/}
+              <Route path="/workplace-safety/test">
+                <WrappedProgrammerWorkplaceSafetyTest/>
+              </Route>
               <Route path="/security-basics/test">
                 <WrappedIntegratedSecurityBasicsTest/>
               </Route>
@@ -70,6 +76,9 @@ const App: React.FC = () => {
                 <WrappedStateDefenseFundamentalsTest/>
               </Route>
               {/*-------------------------*/}
+              <Route path="/workplace-safety">
+                <ProgrammerWorkplaceSafety/>
+              </Route>
               <Route path="/security-basics">
                 <IntegratedSecurityBasics/>
               </Route>

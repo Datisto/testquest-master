@@ -71,3 +71,8 @@
   @include courseButton;
   background-image: url("/static/img/course5.png") !important;
 }
+
+.courseButton6 {
+  @include courseButton;
+  background-image: url("/static/img/course0.png") !important;
+}

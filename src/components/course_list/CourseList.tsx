@@ -82,7 +82,7 @@ export default class CourseList extends React.Component<{}, {
 
     @autobind
     private openCourse5() {
-        appHistory.push("/state-defense");
+        appHistory.push("/workplace-safety");
         window.location.reload();
     }
 
@@ -116,6 +116,12 @@ export default class CourseList extends React.Component<{}, {
                                     </div>
                                 </div>
                                 <div className={styles.courseListMenu}>
+                                    <Button className="courseButton6" onClick={() => this.openCourse5()}>
+                                        <div className={styles.courseListMenuCourse}>
+                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[5].courseNumber}.&nbsp;{data.allCourses.nodes[5].courseName}</span>
+                                            <span className={styles.courseListMenuText}>{data.allCourses.nodes[5].courseAnnotation}</span>
+                                        </div>
+                                    </Button>
                                     <Button className="courseButton1" onClick={() => this.openCourse1()}>
                                         <div className={styles.courseListMenuCourse}>
                                             <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[0].courseNumber}.&nbsp;{data.allCourses.nodes[0].courseName}</span>
@@ -138,12 +144,6 @@ export default class CourseList extends React.Component<{}, {
                                         <div className={styles.courseListMenuCourse}>
                                             <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[3].courseNumber}.&nbsp;{data.allCourses.nodes[3].courseName}</span>
                                             <span className={styles.courseListMenuText}>{data.allCourses.nodes[3].courseAnnotation}</span>
-                                        </div>
-                                    </Button>
-                                    <Button className="courseButton5" onClick={() => this.openCourse5()}>
-                                        <div className={styles.courseListMenuCourse}>
-                                            <span className={styles.courseListMenuTitle}>{data.allCourses.nodes[4].courseNumber}.&nbsp;{data.allCourses.nodes[4].courseName}</span>
-                                            <span className={styles.courseListMenuText}>{data.allCourses.nodes[4].courseAnnotation}</span>
                                         </div>
                                     </Button>
                                 </div>

@@ -1,13 +1,11 @@
 import * as React from "react";
 import {ApolloError, gql} from "apollo-boost";
-import {Button, Input, notification} from "antd";
-import Icon from "@ant-design/icons/lib/components/Icon";
-import { Form } from '@ant-design/compatible';
+import {Button, Input} from "antd";
+import {Form} from '@ant-design/compatible';
 import styles from "./User.module.scss";
 import "./User.scss";
-import { Query } from "react-apollo";
+import {Query} from "react-apollo";
 import {appHistory} from "../../App";
-import {Link} from "react-router-dom";
 import autobind from "autobind-decorator";
 
 const GET_USER = gql`
@@ -100,7 +98,7 @@ class Authorization extends React.Component<IRegistrationProps, {
     };
 
     validatorEmail = (rule: any, str: string, callback: any) => {
-        if (str === "") callback('Пожалуйста, заполните поле!');
+        if ((str === "") || (str === undefined)) callback('Пожалуйста, заполните поле!');
         else if (!/^([a-z0-9_.-]+\.)*[a-z0-9_.-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,20}$/.test(str)) callback('Разрешены только буквы русского алфавита. Пожалуйста, проверьте введёные данные.');
         callback()
     };
