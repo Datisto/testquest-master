@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./App.module.scss";
-import {BrowserRouter as Router, Route, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter as Router, HashRouter, Route, Switch, withRouter} from "react-router-dom";
 import {ApolloProvider} from "react-apollo";
 import {client} from "./index";
 import Registration from "./components/user/Registration";
@@ -52,7 +52,7 @@ export const appHistory = createBrowserHistory();
 
 const App: React.FC = () => {
   return (
-      <Router history={appHistory}>
+      <HashRouter history={appHistory}>
         <ApolloProvider client={client}>
           <div className={styles.appHeader}>
             <AppHeader/>
@@ -130,7 +130,7 @@ const App: React.FC = () => {
             </Switch>
           </div>
         </ApolloProvider>
-      </Router>
+      </HashRouter>
   );
 };
 
